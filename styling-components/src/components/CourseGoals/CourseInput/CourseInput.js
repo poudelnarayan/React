@@ -37,12 +37,14 @@ const CourseInput = props => {
     font-weight: bold;
     display: block;
     margin-bottom: 0.5rem;
+    color: ${porps => props.invalid ? 'red ' : 'black'}
   }
   
   & input {
     display: block;
     width: 100%;
-    border: 1px solid #ccc;
+    border: 1px solid ${props => (props.invalid ? 'red' : '#ccc')};
+    background:${porps => props.invalid ? '#ffd7d7' : 'transparent'}
     font: inherit;
     line-height: 1.5rem;
     padding: 0 0.25rem;
@@ -78,13 +80,18 @@ const CourseInput = props => {
   //   </form>
   // );
 
+ 
+
+
   return (
-    <form onSubmit={formSubmitHandler}>
-      <FormControl className={!isValid && 'invalid'} >
+    <form onSubmit={formSubmitHandler} >
+      {/* <FormControl className={!isValid && 'invalid'} > */}
+      <FormControl invalid={!isValid} >
+
         {/* <label style={{ color: !isValid ? 'red' : 'black' }}>Course Goal</label> */}
         {/* <input style={{ borderColor: !isValid ? 'red' : 'black', background: !isValid ? 'salmon' : 'transparent' }} type="text" onChange={goalInputChangeHandler} /> */}
         <label >Course Goal</label>
-        <input type="text" onChange={goalInputChangeHandler} />
+        <input type='text' onChange={goalInputChangeHandler} key='GoalInput' />
 
       </FormControl>
       <Button type="submit">Add Goal</Button>
