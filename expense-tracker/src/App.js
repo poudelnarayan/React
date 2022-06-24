@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import NewExpense from './components/NewExpense/NewExpense';
 import Expenses from './components/Expenses/Expenses';
 const DUMMY_EXPENSES = [
@@ -43,10 +43,16 @@ const App = () => {
   }
 
   return (
-    <div>
+    <>
+      {/* <Fragment> */}
+      {/* <React.Fragment>   */}
       <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses items={expenses} />
-    </div>
+      {/* <React.Fragment/>   */}
+      {/* </Fragment> */}
+
+
+    </>
   );
 }
 
