@@ -40,9 +40,8 @@ const Login = (props) => {
 
   useEffect(() => {
     const identifier = setTimeout(() => {
-      console.log("print");
       setFormIsValid(
-        emailIsValid && [passwordIsValid]
+        emailIsValid && passwordIsValid
       );
 
     }, 500);
