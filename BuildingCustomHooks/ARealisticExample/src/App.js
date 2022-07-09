@@ -7,21 +7,22 @@ import useHttp from './hooks/use-http';
 function App() {
   const [tasks, setTasks] = useState([]);
 
-  const transformTasks = useCallback(tasksObj => {
-    const loadedTasks = [];
 
-    for (const taskKey in tasksObj) {
-      loadedTasks.push({ id: taskKey, text: tasksObj[taskKey].text });
-    }
-
-    setTasks(loadedTasks);
-
-  }, []);
   //sendRequest: fetchTasks , simplay daoes is gives a new name 'fetchTasks' to the same pointer that sendRequest is pointing to
-  const { isLoading, error, sendRequest: fetchTasks } = useHttp(transformTasks);
+  const { isLoading, error, sendRequest: fetchTasks } = useHttp();
 
   useEffect(() => {
-    fetchTasks({ url: 'https://react-js-300cc-default-rtdb.firebaseio.com/tasks.json' },);
+    const transformTasks = tasksObj => {
+      const loadedTasks = [];
+
+      for (const taskKey in tasksObj) {
+        loadedTasks.push({ id: taskKey, text: tasksObj[taskKey].text });
+      }
+
+      setTasks(loadedTasks);
+
+    };
+    fetchTasks({ url: 'https://react-js-300cc-default-rtdb.firebaseio.com/tasks.json' }, transformTasks);
   }, [fetchTasks]);
 
   const taskAddHandler = (task) => {
