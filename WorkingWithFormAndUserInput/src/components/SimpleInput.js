@@ -21,6 +21,18 @@ const SimpleInput = (props) => {
   const formSubmissionHandler = (event) => {
     event.preventDefault();
 
+    if (enteredName.trim() === "") {
+      return;
+    }
+    /*
+    The client-side validation which we're doing here , where we validate in the browser , is'nt everything you should be doing.
+    If you have a real website a real web-application , which you're building , then validating in the browser as we are about to
+    add it here is great for the user experience because you give user a direct feedback , but you always should validate the inputs
+    on the server , because this code here on the browser , can be edited by the user . We can dive into the source code and change
+    the raw javascript code . So that is not reliable . 
+
+    */
+
     console.log(enteredName);
     const enteredValue = nameInputRef.current.value;
     console.log(enteredValue);
