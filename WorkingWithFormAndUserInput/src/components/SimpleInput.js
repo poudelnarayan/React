@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 const SimpleInput = (props) => {
   const nameInputRef = useRef();
   const [enteredName, setenteredName] = useState("");
+  const [enteredNameIsValid, setenteredNameIsValid] = useState(true);
 
   const nameInputChangeHandler = (event) => {
     setenteredName(event.target.value);
@@ -22,8 +23,11 @@ const SimpleInput = (props) => {
     event.preventDefault();
 
     if (enteredName.trim() === "") {
+      setenteredNameIsValid(false);
       return;
     }
+    setenteredNameIsValid(true);
+
     /*
     The client-side validation which we're doing here , where we validate in the browser , is'nt everything you should be doing.
     If you have a real website a real web-application , which you're building , then validating in the browser as we are about to
@@ -46,9 +50,13 @@ const SimpleInput = (props) => {
     */
     nameInputRef.current.value = ""; // not an ideal way of reseting
   };
+
+  const nameInputClasses = enteredNameIsValid
+    ? "form-control"
+    : "form-control invalid";
   return (
     <form onSubmit={formSubmissionHandler}>
-      <div className="form-control">
+      <div className={nameInputClasses}>
         <label htmlFor="name">Your Name</label>
         <input
           ref={nameInputRef}
@@ -57,6 +65,9 @@ const SimpleInput = (props) => {
           value={enteredName}
           onChange={nameInputChangeHandler}
         />
+        {!enteredNameIsValid && (
+          <p className="error-text">Name must not be empty</p>
+        )}
       </div>
       <div className="form-actions">
         <button type="submit">Submit</button>
