@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import useInput from "../hooks/use-input";
 
 const SimpleInput = (props) => {
@@ -12,9 +10,18 @@ const SimpleInput = (props) => {
     reset: resetNameInput,
   } = useInput((value) => value.trim() !== "");
 
+  const {
+    value: enteredEmail,
+    isValid: enteredEmailIsValid,
+    hasError: emailInputHasError,
+    valueChangeHandler: emailChangeHandler,
+    inputBlurHandler: emailBlurHandler,
+    reset: resetEmailInput,
+  } = useInput((value) => value.includes("@"));
+
   let formIsValid = false;
 
-  if (enteredNameIsValid) {
+  if (enteredNameIsValid && enteredEmailIsValid) {
     formIsValid = true;
   }
 
@@ -25,11 +32,17 @@ const SimpleInput = (props) => {
     }
     console.log(enteredName);
     resetNameInput();
+    resetEmailInput();
   };
 
   const nameInputClasses = nameInputHasError
     ? "form-control invalid"
     : "form-control ";
+
+  const emailInputClasses = emailInputHasError
+    ? "form-control invalid"
+    : "form-control";
+
   return (
     <form onSubmit={formSubmissionHandler}>
       <div className={nameInputClasses}>
@@ -43,6 +56,19 @@ const SimpleInput = (props) => {
         />
         {nameInputHasError && (
           <p className="error-text">Name must not be empty</p>
+        )}
+      </div>
+      <div className={emailInputClasses}>
+        <label htmlFor="email">Your E-mail</label>
+        <input
+          type="email"
+          id="email"
+          value={enteredEmail}
+          onChange={emailChangeHandler}
+          onBlur={emailBlurHandler} // when the input field looses focus
+        />
+        {emailInputHasError && (
+          <p className="error-text">Please enter a valid email.</p>
         )}
       </div>
       <div className="form-actions">
