@@ -7,11 +7,16 @@ import MealItem from "./mealItem/MealItem";
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState();
+
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch(
         "https://react-js-300cc-default-rtdb.firebaseio.com/meals.json"
       );
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
       const responseData = await response.json();
 
       const loadedMeals = [];
@@ -27,7 +32,23 @@ const AvailableMeals = () => {
       setMeals(loadedMeals);
       setIsLoading(false);
     };
-    fetchMeals();
+
+    fetchMeals().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error);
+    });
+
+    // try {
+    //   fetchMeals();
+    // } catch (err) {
+    //   setIsLoading(false);
+    //   setHttpError(err.message);
+    // }
+
+    /*
+      This cannot be done as fetchMeals returns a promise and try-catch is not executed.
+
+      */
   }, []);
 
   if (isLoading) {
@@ -37,6 +58,15 @@ const AvailableMeals = () => {
       </section>
     );
   }
+
+  if (httpError) {
+    return (
+      <section className={classes.MealsError}>
+        <p>HTTP ERROR</p>
+      </section>
+    );
+  }
+
   const mealsList = meals.map((meal) => (
     <MealItem
       id={meal.id}
