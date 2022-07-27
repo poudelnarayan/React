@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import Welcome from "./pages/Welcome";
 import Products from "./pages/Products";
@@ -11,6 +11,8 @@ function App() {
       <MainHeader />
       <main>
         <Routes>
+          <Route path="/" element={<Navigate to="/welcome" />}></Route>
+
           <Route path="welcome" element={<Welcome />}>
             <Route path="new-user" element={<p>Hello new user!</p>}></Route>
           </Route>
