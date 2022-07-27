@@ -1,11 +1,12 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Outlet } from "react-router-dom";
 
 const QuoteDetail = () => {
   const params = useParams();
   return (
     <React.Fragment>
       <p>{params.quoteId}</p>
+      <Outlet />
     </React.Fragment>
   );
 };
