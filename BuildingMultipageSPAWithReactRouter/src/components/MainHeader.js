@@ -22,7 +22,6 @@ const MainHeader = () => {
               className={({ isActive }) =>
                 isActive ? `${classes.active}` : ""
               }
-              activeClassName={classes.active}
               to="/products"
             >
               Products
