@@ -20,7 +20,7 @@ const MainNavigation = () => {
           </li>
           <li>
             <NavLink
-              to="/new-quotes"
+              to="/new-quote"
               className={({ isActive }) =>
                 isActive ? `${classes.active}` : ""
               }
@@ -33,6 +33,5 @@ const MainNavigation = () => {
     </header>
   );
 };
-
 
 export default MainNavigation;
