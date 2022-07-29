@@ -26,6 +26,7 @@ const QuoteDetail = () => {
   return (
     <React.Fragment>
       <HighlightedQuote text={quote.text} author={quote.author} />
+
       <Outlet />
     </React.Fragment>
   );
