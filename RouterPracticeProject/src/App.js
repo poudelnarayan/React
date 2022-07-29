@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate, Link } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import AllQuotes from "./pages/AllQuotes";
 import NewQuote from "./pages/NewQuote";
@@ -13,17 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="quotes" />} />
         <Route path="quotes" element={<AllQuotes />} />
-        <Route path="quotes/:quoteId" element={<QuoteDetail />}>
-          <Route
-            path=""
-            element={
-              <div className="centered">
-                <Link className="btn--flat" to={`comments`}>
-                  Load Comments
-                </Link>
-              </div>
-            }
-          />
+        <Route path="quotes/:quoteId/*" element={<QuoteDetail />}>
           <Route path="comments" element={<Comments />} />
         </Route>
         <Route path="new-quotes" element={<NewQuote />} />
