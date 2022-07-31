@@ -14,6 +14,8 @@ const MainNavigation = () => {
       <Link to="/">
         <div className={classes.logo}>React Auth</div>
       </Link>
+
+      
       <nav>
         <ul>
           {!isLoggedIn && (
