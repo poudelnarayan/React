@@ -28,6 +28,7 @@ export async function getStaticProps() {
     props: {
       meetups: DUMMY_MEETUPS,
     },
+    revalidate: 1, // update the data on every 1 second if there is a requests
   };
 }
 /*
