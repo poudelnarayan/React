@@ -22,20 +22,41 @@ const DUMMY_MEETUPS = [
 function HomePage(props) {
   return <MeetupList meetups={props.meetups} />;
 }
-export async function getStaticProps() {
-  // fetch data from an API
+// export async function getStaticProps() {
+//   // fetch data from an API
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//     revalidate: 1, // update the data on every 1 second if there is a requests
+//   };
+// }
+
+export async function getServerSideProps(context) {
+  // you can get the request and response from the context
+  const req = context.req;
+  const res = context.res;
+  // any code you write here will run on server not on the client side
   return {
     props: {
       meetups: DUMMY_MEETUPS,
     },
-    revalidate: 1, // update the data on every 1 second if there is a requests
   };
 }
+
 /*
-This can only be exported from inside page component file and not from other component, only in component files inside of the page
-folder.
-and it has to be callled getStaticProps, this is a reserved name so to say.
-Its job is to prepare props for this page. and these props then contain the data this page needs.
+Which is better ? getServerSideProps() or getStaticProps() ?
+
+  getServerSideProps might sound better because its guaranteed to run for every request. But that actually can be disadvantage,
+  because that means that you need to wait for your page to be generated on every incoming request since we dont have 
+  data that changes all the time in this project.
+  And if you dont need access to the request object , lets say for authentication , getStaticProps() is actually better , because 
+  there you pre-generate an HTML file , that file can then be stored and served by a CDN and that generally is faster than
+  regenerating and fetching that data for every incoming request.
+  You should really only use getServerSideProps if you need access to that concrete request object because you dont have access 
+  to request and response in getStaticProps.
+  or if you really have data that changes multiple times every seconds , then therefore even revalidate won't help you , 
+  then getServerSideProps is a great choice.
 
 */
 
