@@ -22,27 +22,27 @@ const DUMMY_MEETUPS = [
 function HomePage(props) {
   return <MeetupList meetups={props.meetups} />;
 }
-// export async function getStaticProps() {
-//   // fetch data from an API
-//   return {
-//     props: {
-//       meetups: DUMMY_MEETUPS,
-//     },
-//     revalidate: 1, // update the data on every 1 second if there is a requests
-//   };
-// }
-
-export async function getServerSideProps(context) {
-  // you can get the request and response from the context
-  const req = context.req;
-  const res = context.res;
-  // any code you write here will run on server not on the client side
+export async function getStaticProps() {
+  // fetch data from an API
   return {
     props: {
       meetups: DUMMY_MEETUPS,
     },
+    revalidate: 1, // update the data on every 1 second if there is a requests
   };
 }
+
+// export async function getServerSideProps(context) {
+//   // you can get the request and response from the context
+//   const req = context.req;
+//   const res = context.res;
+//   // any code you write here will run on server not on the client side
+//   return {
+//     props: {
+//       meetups: DUMMY_MEETUPS,
+//     },
+//   };
+// }
 
 /*
 Which is better ? getServerSideProps() or getStaticProps() ?
